@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:guris/pages/deneme.dart';
 import 'package:guris/pages/home.dart';
 
 void main() {
