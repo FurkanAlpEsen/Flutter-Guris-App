@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:guris/pages/google_maps.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-// Demo list to show querying
+
+  var result; 
+
   List<String> searchTerms = [
     'Tesis Ankara',
     'Tesis Istanbul',
@@ -16,8 +17,6 @@ class CustomSearchDelegate extends SearchDelegate {
     'Tesis Erzurum'
   ];
 
-// first overwrite to
-// clear the search text
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -30,7 +29,6 @@ class CustomSearchDelegate extends SearchDelegate {
     ];
   }
 
-// second overwrite to pop out of search menu
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
@@ -41,7 +39,6 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 
-// third overwrite to show query result
   @override
   Widget buildResults(BuildContext context) {
     List<String> matchQuery = [];
@@ -55,14 +52,16 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
+          onTap: () {
+                        Navigator.pop(context);
+            result;
+          },
           title: Text(result),
         );
       },
     );
   }
 
-// last overwrite to show the
-// querying process at the runtime
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];

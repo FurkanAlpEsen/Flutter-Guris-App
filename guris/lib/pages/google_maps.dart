@@ -4,6 +4,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'dart:ui' as ui;
 import 'dart:math' show cos, sqrt, asin;
 
@@ -97,7 +98,7 @@ class _MapViewState extends State<MapView> {
   }
 
   _getCurrentLocation() async {
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
         _currentPosition = position;
@@ -112,6 +113,9 @@ class _MapViewState extends State<MapView> {
         );
       });
       await _getAddress();
+      setState(() {
+        
+      });
     }).catchError((e) {
       print(e);
     });
@@ -171,7 +175,7 @@ class _MapViewState extends State<MapView> {
           title: 'Start $startCoordinatesString',
           snippet: _startAddress,
         ),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
       );
 
       Marker destinationMarker = Marker(
@@ -181,7 +185,7 @@ class _MapViewState extends State<MapView> {
           title: 'Destination $destinationCoordinatesString',
           snippet: _destinationAddress,
         ),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
       );
       markers.add(startMarker);
       markers.add(destinationMarker);
@@ -221,14 +225,14 @@ class _MapViewState extends State<MapView> {
           100.0,
         ),
       );
-
-      // await _createPolylines(startLatitude, startLongitude, destinationLatitude,
-      //     destinationLongitude);
+      print('test------------$test');
+      await _createPolylines(startLatitude as double, startLongitude as double,
+          destinationLatitude as double, destinationLongitude as double);
 
       // print(
       //     '---values: $startLatitude, $startLongitude, $destinationLatitude, $destinationLongitude----');
 
-      await _createPolylines(41.015983, 28.977655, 39.929079, 32.869710);
+      //await _createPolylines(41.015983, 28.977655, 39.929079, 32.869710);
 
       double totalDistance = 0.0;
 
@@ -264,12 +268,8 @@ class _MapViewState extends State<MapView> {
   }
 
   // Create the polylines for showing the route between two places
-  _createPolylines(
-    startLatitude,
-    startLongitude,
-    destinationLatitude,
-    destinationLongitude,
-  ) async {
+  _createPolylines(startLatitude, startLongitude, destinationLatitude,
+      destinationLongitude) async {
     polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       Secrets.API_KEY, // Google Maps API Key
@@ -304,7 +304,10 @@ class _MapViewState extends State<MapView> {
         .asUint8List();
   }
 
+  LatLng test = LatLng(1, 2);
+
   void _getmyMarkerLocation(double lat, double long) async {
+    test = LatLng(lat, long);
     List<Placemark> p = await placemarkFromCoordinates(lat, long);
 
     Placemark place = p[0];
@@ -359,37 +362,37 @@ class _MapViewState extends State<MapView> {
     );
     Marker sample4 = Marker(
       markerId: MarkerId('Tesis Erzurum'),
-      position: LatLng(39.549999, 41.169997),
+      position: LatLng(39.90861, 41.27694),
       infoWindow: InfoWindow(
         title: 'Tesis Erzurum',
       ),
       icon: BitmapDescriptor.fromBytes(markIcons),
       onTap: () {
-        _getmyMarkerLocation(9.549999, 41.169997);
+        _getmyMarkerLocation(39.90861 ,41.27694);
         setState(() {});
       },
     );
     Marker sample5 = Marker(
       markerId: MarkerId('Tesis Antalya'),
-      position: LatLng(36.886700, 30.703298),
+      position: LatLng(36.90812, 30.69556),
       infoWindow: InfoWindow(
         title: 'Tesis Antalya',
       ),
       icon: BitmapDescriptor.fromBytes(markIcons),
       onTap: () {
-        _getmyMarkerLocation(36.886700, 30.703298);
+        _getmyMarkerLocation(36.90812, 30.69556);
         setState(() {});
       },
     );
     Marker sample6 = Marker(
       markerId: MarkerId('Tesis Mersin'),
-      position: LatLng(36.471599, 34.374563),
+      position: LatLng(36.812103, 34.641479),
       infoWindow: InfoWindow(
         title: 'Tesis Mersin',
       ),
       icon: BitmapDescriptor.fromBytes(markIcons),
       onTap: () {
-        _getmyMarkerLocation(36.471599, 34.374563);
+        _getmyMarkerLocation(36.812103, 34.641479);
         setState(() {});
       },
     );
@@ -407,25 +410,25 @@ class _MapViewState extends State<MapView> {
     );
     Marker sample8 = Marker(
       markerId: MarkerId('Tesis Adiyaman'),
-      position: LatLng(37.066666, 37.383331),
+      position: LatLng(37.783745, 37.641323),
       infoWindow: InfoWindow(
         title: 'Tesis Adiyaman',
       ),
       icon: BitmapDescriptor.fromBytes(markIcons),
       onTap: () {
-        _getmyMarkerLocation(37.066666, 37.383331);
+        _getmyMarkerLocation(37.783745, 37.641323);
         setState(() {});
       },
     );
     Marker sample9 = Marker(
       markerId: MarkerId('Tesis Gaziantep'),
-      position: LatLng(37.783745, 37.641323),
+      position: LatLng(37.066666, 37.383331),
       infoWindow: InfoWindow(
         title: 'Tesis Gaziantep',
       ),
       icon: BitmapDescriptor.fromBytes(markIcons),
       onTap: () {
-        _getmyMarkerLocation(37.783745, 37.641323);
+        _getmyMarkerLocation(37.066666, 37.383331);
         setState(() {});
       },
     );
@@ -439,34 +442,38 @@ class _MapViewState extends State<MapView> {
     markers.add(sample8);
     markers.add(sample9);
 
-    setState(() {
-      markers.forEach((element) {
-        if (widget.selection == element.markerId.value) {
-          print('element ${element.markerId}');
-          print('pos ${element.position}');
-          _cameraPos = element.position;
+    // setState(() {
+    //   markers.forEach((element) {
+    //     if (widget.selection == element.markerId.value) {
+    //       print('element ${element.markerId}');
+    //       print('pos ${element.position}');
+    //       _cameraPos = element.position;
 
-          mapController.animateCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target: LatLng(
-                  _cameraPos.latitude,
-                  _cameraPos.longitude,
-                ),
-                zoom: 8.0,
-              ),
-            ),
-          );
-        }
-      });
-    });
+    //       mapController.animateCamera(
+    //         CameraUpdate.newCameraPosition(
+    //           CameraPosition(
+    //             target: LatLng(
+    //               _cameraPos.latitude,
+    //               _cameraPos.longitude,
+    //             ),
+    //             zoom: 8.0,
+    //           ),
+    //         ),
+    //       );
+    //     }
+    //   });
+    // });
   }
+
+  var status;
 
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
     _loadmyMarkers();
+    status = Permission.location.request();
+    status = Permission.location.status;
     // getPolyPoints();
   }
 
@@ -486,7 +493,7 @@ class _MapViewState extends State<MapView> {
       width: width,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Harita'),
+          title: Center(child: Text('Harita')),
           actions: [
             IconButton(
               onPressed: () {
@@ -511,13 +518,37 @@ class _MapViewState extends State<MapView> {
               mapType: MapType.normal,
               zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
+              trafficEnabled: true,
               // polylines: Set<Polyline>.of(polylines.values),
               polylines: Set<Polyline>.of(polylines.values),
               onMapCreated: (GoogleMapController controller) {
-                mapController = controller;
-                // setState(() {
+                setState(() {
+                  mapController = controller;
+                });
+                setState(() {
+                  
+                });
+                setState(() {
+                  markers.forEach((element) {
+                    if (widget.selection == element.markerId.value) {
+                      print('element ${element.markerId}');
+                      print('pos ${element.position}');
+                      _cameraPos = element.position;
 
-                // });
+                      mapController.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: LatLng(
+                              _cameraPos.latitude,
+                              _cameraPos.longitude,
+                            ),
+                            zoom: 8.0,
+                          ),
+                        ),
+                      );
+                    }
+                  });
+                });
               },
             ),
             // Show zoom buttons
@@ -616,6 +647,7 @@ class _MapViewState extends State<MapView> {
                                         _currentAddress;
                                     _startAddress = _currentAddress;
                                   });
+                                  setState(() {});
                                 },
                               ),
                               controller: startAddressController,
@@ -669,7 +701,7 @@ class _MapViewState extends State<MapView> {
                                             polylineCoordinates.clear();
                                           _placeDistance = null;
                                         });
-
+                                        //_createPolylines(test.latitude, test.longitude, _currentPosition.latitude, _currentPosition.longitude);
                                         _calculateDistance()
                                             .then((isCalculated) {
                                           if (isCalculated) {
@@ -690,6 +722,7 @@ class _MapViewState extends State<MapView> {
                                             );
                                           }
                                         });
+                                        setState(() {});
                                       }
                                     : null,
                                 child: Padding(
@@ -721,16 +754,16 @@ class _MapViewState extends State<MapView> {
                                     (marker) =>
                                         marker.markerId.value == "Destination",
                                   );
-                                  setState(() {
-                                    markers.remove(start);
-                                    markers.remove(dest);
+                                   markers.remove(start);
+                                  markers.remove(dest);
 
-                                    polylines.clear();
-                                    polylineCoordinates.clear();
-                                    _placeDistance = null;
-                                    startAddressController.clear();
-                                    destinationAddressController.clear();
-                                    // if (markers.isNotEmpty) markers.clear();
+                                  polylines.clear();
+                                  polylineCoordinates.clear();
+                                  _placeDistance = null;
+                                  startAddressController.clear();
+                                  destinationAddressController.clear();
+                                  setState(() {
+
                                   });
                                 },
                               )

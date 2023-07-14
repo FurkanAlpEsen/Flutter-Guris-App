@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Widget> _tabItems = [
     SavedLocationPage(),
-    MapView(selection: ''),
+    MapView(selection: '',),
     UnitsPage()
   ];
   int _page = 0;
