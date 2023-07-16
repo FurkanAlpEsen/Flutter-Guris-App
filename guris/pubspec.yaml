@@ -43,6 +43,7 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   permission_handler: ^10.4.3
+  easy_search_bar: ^2.5.0
 
 dev_dependencies:
   flutter_test:

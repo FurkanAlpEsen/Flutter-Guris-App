@@ -7,11 +7,13 @@ class SavedLocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.amber,
         title: Center(child: Text('Saved Location')),
       ),
       body: Container(
         child: ListView(
-          children: [Card(
+          children: [
+            Card(
               clipBehavior: Clip.antiAlias,
               child: Column(
                 children: [
@@ -23,7 +25,7 @@ class SavedLocationPage extends StatelessWidget {
                       style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
-                                  Image.asset('assets/images/guris.png'),
+                  Image.asset('assets/images/guris.png'),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
@@ -48,7 +50,6 @@ class SavedLocationPage extends StatelessWidget {
                       ),
                     ],
                   ),
-        
                 ],
               ),
             ),
@@ -92,10 +93,7 @@ class SavedLocationPage extends StatelessWidget {
                 ],
               ),
             ),
-
-            ],
-            
-
+          ],
         ),
       ),
     );

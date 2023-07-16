@@ -98,7 +98,7 @@ class _MapViewState extends State<MapView> {
   }
 
   _getCurrentLocation() async {
-     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
         _currentPosition = position;
@@ -113,9 +113,7 @@ class _MapViewState extends State<MapView> {
         );
       });
       await _getAddress();
-      setState(() {
-        
-      });
+      setState(() {});
     }).catchError((e) {
       print(e);
     });
@@ -368,7 +366,7 @@ class _MapViewState extends State<MapView> {
       ),
       icon: BitmapDescriptor.fromBytes(markIcons),
       onTap: () {
-        _getmyMarkerLocation(39.90861 ,41.27694);
+        _getmyMarkerLocation(39.90861, 41.27694);
         setState(() {});
       },
     );
@@ -525,9 +523,7 @@ class _MapViewState extends State<MapView> {
                 setState(() {
                   mapController = controller;
                 });
-                setState(() {
-                  
-                });
+                setState(() {});
                 setState(() {
                   markers.forEach((element) {
                     if (widget.selection == element.markerId.value) {
@@ -754,7 +750,7 @@ class _MapViewState extends State<MapView> {
                                     (marker) =>
                                         marker.markerId.value == "Destination",
                                   );
-                                   markers.remove(start);
+                                  markers.remove(start);
                                   markers.remove(dest);
 
                                   polylines.clear();
@@ -762,9 +758,7 @@ class _MapViewState extends State<MapView> {
                                   _placeDistance = null;
                                   startAddressController.clear();
                                   destinationAddressController.clear();
-                                  setState(() {
-
-                                  });
+                                  setState(() {});
                                 },
                               )
                             ],

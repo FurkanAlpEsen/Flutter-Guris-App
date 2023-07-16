@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guris/pages/map_view.dart';
 import 'package:guris/pages/home.dart';
 
 void main() {

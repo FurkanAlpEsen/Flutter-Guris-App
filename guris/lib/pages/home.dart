@@ -1,8 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:guris/pages/map_view.dart';
 import 'package:guris/pages/units.dart';
 import 'package:guris/pages/saved_locations.dart';
-import 'package:guris/pages/google_maps.dart';
+// import 'package:guris/pages/google_maps.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +15,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Widget> _tabItems = [
     SavedLocationPage(),
-    MapView(selection: '',),
+    // MapView(selection: '',),
+    MyMapViewPage(),
     UnitsPage()
   ];
   int _page = 0;
@@ -23,9 +25,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: SizedBox(
-        height: 85,
+        height: 65,
         child: CurvedNavigationBar(
-          // height: 100,
+          height: 50,
           color: Color.fromARGB(255, 255, 255, 255),
           backgroundColor: Color.fromARGB(255, 149, 183, 216),
           items: <Widget>[
